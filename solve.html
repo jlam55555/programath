@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+	<title>PrograMath-GraphWidget</title>
+	<style>
+		@font-face {
+			font-family: colab;
+			src: url("colab.otf");
+		}
+		* {
+			margin: 0;
+			padding: 0;
+			font-family: colab;
+		}
+		body {
+			width: 500px;
+			background-color: rgba(175, 175, 255, 0.8);
+		}
+		button {
+			float: right;
+			margin: 20px;
+			width: 200px;
+			padding: 10px;
+			font-size: 20px;
+		}
+		h1 {
+			margin: 20px 10px;
+			padding: 5px;
+			display: inline-block;
+			background-color: black;
+			color: white;
+		}
+		#result {
+			width: 450px;
+			border: 2px solid black;
+			padding: 20px;
+			display: block;
+			margin: 3px auto;
+			text-align: right;
+			font-size: 40px;
+			background-color: rgba(255,255,255,0.75);
+		}
+	</style>
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+	<input id="result" value="x^2=4" />
+	<h1>Solve for <span style="font-style:italic;font-weight: bold">x</span>.</h1><button onclick="solve()">Solve</button><br /><br />
+	<span style="color:red;padding: 20px;">Note: This is not done yet, can only handle simple one-step equations (e.g. <span class="code">x^2=4</span>).</span>
+	<script>
+		function calculate(exp) { // could use JS `eval()`, but I want to evaluate string expression by myself
+			mdi = /(-?\d+(\.\d+)?)([\*\/])(-?\d+(\.\d+)?)/g;
+			asu = /(-?\d+(\.\d+)?)([\+\-])(-?\d+(\.\d+)?)/g;
+			par = /\(([^\(\)]+)\)/g;
+			sct = /(sin|cos|tan)\(([^\(\)]+)\)/g;
+			num = /\d+(\.\d+)?/g;
+			pow = /((-)?\d+(\.\d+)?)\^((-)?\d+(\.\d+)?)/g;
+			Nnum = /[^0-9\.]/g;
+			doN = /--/g;
+			while((result = sct.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(sct,
+					function(match,$1,$2) {
+						if($1 == "sin")
+							return Math.sin(calculate($2));
+						else if($1 == "cos")
+							return Math.cos(calculate($2));
+						else
+							return Math.tan(calculate($2));
+					});
+			}
+			while((result = par.exec(exp)) !== null) {
+				exp = exp.replace(par,
+					function(match,$1) {
+						return calculate($1);
+					});
+			}
+			while((result = pow.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(pow,
+					function(match,$1,$2,$3,$4,$5) {
+						return calculate(Math.pow(parseFloat($1),parseFloat($4)));
+					});
+			}
+			while((result = mdi.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(mdi,
+					function(match,$1,$3,$4,$5) {
+						if($4 == "*")
+							return parseFloat($1) * parseFloat($5);
+						else
+							return parseFloat($1) / parseFloat($5);
+					});
+				exp = exp.replace(doN,"");
+			}
+			while((result = asu.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(asu,
+					function(match,$1,$3,$4,$5) {
+						if($4 == "+")
+							return parseFloat($1) + parseFloat($5);
+						else
+							return parseFloat($1) - parseFloat($5);
+					});
+				exp = exp.replace(doN,"");
+			}
+			return exp;
+		}
+		function revCalc(exp) {
+			mdi = /([\*\/])(-?\d+(\.\d+)?)/g;
+			asu = /([\+\-])(-?\d+(\.\d+)?)/g;
+			par = /\(([^\(\)]+)\)/g;
+			sct = /(sin|cos|tan)\(([^\(\)]+)\)/g;
+			num = /\d+(\.\d+)?/g;
+			pow = /((?:(-)?\d+(\.\d+)?)|x)\^((-)?\d+(\.\d+)?)/g;
+			Nnum = /[^0-9\.]/g;
+			doN = /--/g;
+			while((result = asu.exec(exp)) !== null) {
+				exp = exp.replace(asu,"");
+				if(result[1] == "+")
+					noX -= parseInt(result[2]);
+				else
+					noX += parseInt(result[2]);
+			}
+			while((result = mdi.exec(exp)) !== null) {
+				exp = exp.replace(mdi,"");
+				if(result[1] == "*")
+					noX /= parseInt(result[2]);
+				else
+					noX *= parseInt(result[2]);
+				exp = exp.replace(doN,"");
+			}
+			while((result = pow.exec(exp)) !== null) {
+				exp = exp.replace(pow,result[1]);
+				noX = Math.pow(noX,1/parseInt(result[4]));
+			}
+			while((result = par.exec(exp)) !== null) {
+				exp = exp.replace(par,
+					function(match,$1) {
+						return calculate($1);
+					});
+			}
+			return exp;
+		}
+		function solve() {
+			remSp = /\s/;
+			withXSide1 = /^(.*x.*)\=/i;
+			withXSide2 = /\=(.*x.*)$/i;
+			noXSide1 = /\=(.*)$/;
+			noXSide2 = /^(.*)\=/;
+			RES = document.getElementById("result").value;
+			while((result = remSp.exec(RES)) !== null);
+				RES = RES.replace(remSp,"");
+			document.getElementById("result").value = RES;
+			withX = 0;
+			withX = (withXSide1.exec(RES) != null) ? withXSide1.exec(RES)[1] : withXSide2.exec(RES)[1];
+			noX = parseInt((withXSide1.exec(RES) != null) ? noXSide1.exec(RES)[1] : noXSide2.exec(RES)[2]);
+			if(withX == 0)
+				alert("No x on one side.");
+			document.getElementById("result").value = revCalc(withX) + "=" + noX;
+		}
+	</script>
+</body>
+</html>

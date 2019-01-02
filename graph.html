@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+	<title>PrograMath-GraphWidget</title>
+	<style>
+		@font-face {
+			font-family: colab;
+			src: url("colab.otf");
+		}
+		* {
+			margin: 0;
+			padding: 0;
+			font-family: colab;
+		}
+		body {
+			width: 500px;
+		}
+		button,input {
+			padding: 5px;
+		}
+		canvas {
+			display: block;
+		}
+		#funcCont {
+			padding: 10px;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+		h1 {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			padding: 5px;
+			background-color: black;
+			color: white;
+		}
+		h2 {
+			font-family: georgia;
+			width: 500px;
+			font-size: 1em;
+			text-align: right;
+		}
+	</style>
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+	<canvas id="graph" height="500" width="500"></canvas>
+	<h1>Graph</h1>
+	<h2 id="funcCont">
+		Function:
+		<input id="function" value="y=-0.01*(x-125)^2+125" />
+		<button type="button" onclick="changeGraph()">Graph</button>
+	</h2>
+	<script>
+		function draw() {
+			c.clearRect(0,0,500,500);
+			c.strokeStyle = "rgb(150,150,200)";
+			c.lineWidth = 1;
+			for(var i = 25; i <= 475; i += 25) {
+				c.beginPath();
+				c.moveTo(0,i);
+				c.lineTo(500,i);
+				c.stroke();
+				c.beginPath();
+				c.moveTo(i,0);
+				c.lineTo(i,500);
+				c.stroke();
+			}
+			c.strokeStyle = "rgb(250,75,75)";
+			c.lineWidth = 2;
+			c.beginPath();
+			c.moveTo(0,250);
+			c.lineTo(500,250);
+			c.stroke();
+			c.beginPath();
+			c.moveTo(250,0);
+			c.lineTo(250,500);
+			c.stroke();
+			c.strokeStyle = "rgb(75,75,250)";
+			c.font = "16px calibri";
+			c.strokeText("250",255,20);
+			c.strokeText("-250",5,245);
+			c.textAlign = "right";
+			c.strokeText("250",495,265);
+			c.strokeText("-250",245,495);
+			c.strokeStyle = "rgb(0,0,0)";
+			c.lineWidth = 1;
+			c.beginPath();
+			if(!/[xy].*=|=.*[xy]/i.test(expression))
+				alert("Function does not have a 'y' or 'x' and '='.");
+			else if(/[^\s\*\/+\-yx=(tan)(cos)(sin)\)\(0-9\.\^]/i.test(expression))
+				alert("Function contains characters other than digits,'*','/','+','-','y','x','=','sin','cos','tan','(',')'. Invalid character: '" + expression.substr(expression.search(/[^\s\*\/+\-yx=tancosin\)\(0-9\.\^]/i)) + "'",1);
+			else {
+				for(x = -250; x <= 250; x++) { // change interval to 1/500th of x-range; change start and finish to range
+					noy = expression.substr(2);
+					noy = noy.replace(/x/gi,x);
+					noy = noy.replace(/--/g,"");
+					noy = noy.replace(/\(\)/g,"");
+					res = parseInt(calculate(noy));
+					if(x%50 == 0) console.log(res);
+					// done parsing
+					xCoor = x+250;
+					yCoor = 250-(res);
+					if(x == -250)
+						c.moveTo(parseInt(xCoor),parseInt(yCoor));
+					else
+						c.lineTo(parseInt(xCoor),parseInt(yCoor));
+				}
+				c.stroke();
+			}
+		}
+		function calculate(exp) { // could use JS `eval()`, but I want to evaluate string expression by myself
+			mdi = /(-?\d+(\.\d+)?)([\*\/])(-?\d+(\.\d+)?)/g;
+			asu = /(-?\d+(\.\d+)?)([\+\-])(-?\d+(\.\d+)?)/g;
+			par = /\(([^\(\)]+)\)/g;
+			sct = /(sin|cos|tan)\(([^\(\)]+)\)/g;
+			num = /\d+(\.\d+)?/g;
+			pow = /((-)?\d+(\.\d+)?)\^((-)?\d+(\.\d+)?)/g;
+			Nnum = /[^0-9\.]/g;
+			doN = /--/g;
+			while((result = sct.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(sct,
+					function(match,$1,$2) {
+						if($1 == "sin")
+							return Math.sin(calculate($2));
+						else if($1 == "cos")
+							return Math.cos(calculate($2));
+						else
+							return Math.tan(calculate($2));
+					});
+			}
+			while((result = par.exec(exp)) !== null) {
+				exp = exp.replace(par,
+					function(match,$1) {
+						return calculate($1);
+					});
+			}
+			while((result = pow.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(pow,
+					function(match,$1,$2,$3,$4,$5) {
+						return calculate(Math.pow(parseFloat($1),parseFloat($4)));
+					});
+			}
+			while((result = mdi.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(mdi,
+					function(match,$1,$3,$4,$5) {
+						if($4 == "*")
+							return parseFloat($1) * parseFloat($5);
+						else
+							return parseFloat($1) / parseFloat($5);
+					});
+				exp = exp.replace(doN,"");
+			}
+			while((result = asu.exec(exp)) !== null) {
+				if(x%50 == 0) console.log(exp);
+				exp = exp.replace(asu,
+					function(match,$1,$3,$4,$5) {
+						if($4 == "+")
+							return parseFloat($1) + parseFloat($5);
+						else
+							return parseFloat($1) - parseFloat($5);
+					});
+				exp = exp.replace(doN,"");
+			}
+			return exp;
+		}
+		function changeGraph() {
+			expression = document.getElementById("function").value;
+			draw();
+		}
+		function checkKeycode(e) {
+			if (window.event)
+				keycode = window.event.keyCode;
+			else if (e)
+				keycode = e.which;
+			if(keycode == 13)
+				changeGraph();
+		}
+		var c = document.getElementById("graph").getContext("2d");
+		expression = "y=-0.01*(x-125)^2+125";
+		draw();
+		document.onkeydown = checkKeycode;
+		document.onmousedown = function() {
+			if(document.getElementById("noteContainer").style.display == "block")
+				info();
+		}
+	</script>
+</body>
+</html>

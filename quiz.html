@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<title>PrograMath-Quiz</title>
+	<style>
+		@font-face {
+			font-family: colab;
+			src: url("colab.otf");
+		}
+		* {
+			margin: 0;
+			padding: 0;
+			font-family: colab;
+		}
+		body {
+			padding: 20px 50px;
+		}
+		#codeLink {
+			display: block;
+			width: 100px;
+			text-align: right;
+			position: absolute;
+			top: 40px;
+			right: 50px;
+		}
+		h1 {
+			margin-bottom: 10px;
+		}
+		input {
+			padding: 5px;
+			margin-left: 20px;
+		}
+		hr {
+			border: none;
+			background-color: black;
+			height: 1px;
+			margin: 10px 0;
+		}
+		li {
+			margin: 10px auto;
+		}
+		ol {
+			margin-left: 20px;
+		}
+	</style>
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+	<h1>Quiz on PrograMath</h1>
+	<a id="codeLink" href="code.html" title="Code">Back to Code</a>
+	<p>Here is a short quiz on PrograMath and the languages involved. You may use the <a href="code.html">Code</a> page to guide you. The answers will be scored sent to Jon. On this page, a little of a fourth language is used: PHP. Learn about it <a href="php.net" title="php.net" target="_blank">here</a>.</p>
+	<hr />
+	<form action="score.php" method="post">
+		Enter your last name here: <input name="name" />
+		<ol>
+			<li>What is the name of this website? <input name="site"></li>
+ 			<li>Which of the languages used on this site does the styling? <input name="styl"></li>
+			<li>Which of the languages used on this site does the processing? <input name="proc"></li>
+			<li>Which of the languages used on this site is a markup language? <input name="mark"></li>
+			<li>What do regular expression do? <input name="rege"></li>
+		</ol>
+		<input type="submit" value="Submit" />
+	</form>
+	<p>If you are pressing Submit and the form is not submitting, make sure you have all fields filled in.</p>
+</body>
+</html>

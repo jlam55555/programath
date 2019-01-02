@@ -1,0 +1,188 @@
+<!doctype html>
+	<html>
+	<head>
+		<title>PrograMath-CalcWidget</title>
+		<style>
+			@font-face {
+				font-family: "colab";
+				src: url("colab.otf");
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "colab";
+			}
+			body {
+				width: 480px;
+			}
+			button {
+				width: 20%;
+				height: 40px;
+				border: none;
+				margin: 10px 2.5%;
+				font-weight: bold;
+			}
+			#calc {
+				width: 500px;
+				height: 500px;
+				overflow: hidden;
+				background-color: rgba(175, 175, 255, 0.8);
+			}
+			#eq {
+				border: 2px solid red;
+			}
+			h1 {
+				padding: 5px;
+				background-color: black;
+				color: white;
+				text-align: center;
+				margin: 20px auto;
+				width: 130px;
+			}
+			.num {
+				background-color: white;
+			}
+			#result {
+				width: 450px;
+				border: 2px solid black;
+				padding: 20px;
+				display: block;
+				margin: 3px auto;
+				text-align: right;
+				font-size: 40px;
+				background-color: rgba(255,255,255,0.75);
+			}
+		</style>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="calc">
+			<span id="result">(250/2)+23</span>
+			<button id="on" class='num'>1</button><!--
+		 --><button id="tw" class='num'>2</button><!--
+		 --><button id="th" class='num'>3</button><!--
+		 --><button id="pl">+</button><!--
+		 --><button id="fo" class='num'>4</button><!--
+		 --><button id="fi" class='num'>5</button><!--
+		 --><button id="si" class='num'>6</button><!--
+		 --><button id="su">-</button><!--
+		 --><button id="se" class='num'>7</button><!--
+		 --><button id="ei" class='num'>8</button><!--
+		 --><button id="ni" class='num'>9</button><!--
+		 --><button id="mu">*</button><!--
+		 --><button id="do" class='num'>.</button><!--
+		 --><button id="ze" class='num'>0</button><!--
+		 --><button id="cl">CLEAR</button><!--
+		 --><button id="di">/</button><!--
+		 --><button id="op">(</button><!--
+		 --><button id="cp">)</button><!--
+		 --><button id="ba">BACK</button><!--
+		 --><button id="eq">=</button>
+		 <h1>Calculator</h1>
+		</div>
+		<script>
+			"use strict";
+			var resEl = document.getElementById("result"),
+				resultBox =  document.getElementById("result");
+			function back(func) {          
+				resEl.innerHTML = 
+					func == "back" && resEl.innerHTML.slice(0,-1)
+					|| "0";
+			}
+			function calculate(exp) { // could use JS `eval()`, but I want to evaluate string expression by myself - this is similar to the graphing calculator
+				var doN = /--/g,
+					num = /\d+(\.\d+)?/g,
+					Nnum = /[^0-9\.]/g;
+
+				return replace(exp, [
+					{
+						regex: /(sin|cos|tan)\(([^\(\)]+)\)/g,
+						func: function sct(match,$1,$2) {
+							console.log("$1=" + $1 + ";$2=" + $2);
+							if($1 == "sin")
+								return Math.sin(calculate($2));
+							else if($1 == "cos")
+								return Math.cos(calculate($2));
+							else
+								return Math.tan(calculate($2));
+						}
+					}, {
+						regex: /\(([^\(\)]+)\)/g,
+						func: function par(match,$1) {
+							return calculate($1);
+						}
+					}, {
+						regex: /((-)?\d+(\.\d+)?)\^((-)?\d+(\.\d+)?)/g,
+						func: function pow(match,$1,$2,$3,$4,$5) {
+							console.log("$1=" + parseFloat($1) + ";$3=" + parseFloat($4));
+							return calculate(Math.pow(parseFloat($1),parseFloat($4)));
+						}
+					}, {
+						regex: /(-?\d+(\.\d+)?)([\*\/])(-?\d+(\.\d+)?)/g,
+						func: function mdi(match,$1,$3,$4,$5) {
+							console.log(exp);
+							if($4 == "*")
+								return parseFloat($1) * parseFloat($5);
+							else
+								return parseFloat($1) / parseFloat($5);
+						},
+						remove: doN
+					}, {
+						regex: /(-?\d+(\.\d+)?)([\+\-])(-?\d+(\.\d+)?)/g,
+						func: function asu(match,$1,$3,$4,$5) {
+							console.log(exp);
+							if($4 == "+")
+								return parseFloat($1) + parseFloat($5);
+							else
+								return parseFloat($1) - parseFloat($5);
+						},
+						remove: doN
+					}
+				]);
+			}
+			function replace(str, arr) {
+				for(var i=0; i<arr.length; ++i) {
+					while(str !== (str = str.replace(arr[i].regex, arr[i].func))) {
+						if(arr[i].remove)
+							str = str.replace(arr[i].remove, '');
+					}
+				}
+				return str;
+			}
+			function press(val) {
+				if(resultBox.innerHTML != "0")
+					resultBox.innerHTML += val;
+				else
+					resultBox.innerHTML = val;
+			}
+			function solve() {
+				var result = resEl.innerHTML,
+					invalid = result.search(/[^\s\*\/+\-tancosin\)\(0-9\.\^]/i);
+				if(~invalid)
+					alert("Expression contains characters other than digits,'*','/','+','-','sin','cos','tan','(',')'. Invalid character: '" + result[invalid] + "'",1);
+
+				result = replace(result, [
+					{
+						regex: /(\D)(\.\d)/g,
+						func: function zpo($match,$1,$2) {
+							console.log($2 + " -> 0 + " + $2);
+							return $1 + "0" + $2;
+						}
+					}
+				]);
+				result = calculate(result);
+				resEl.innerHTML = result;
+			}
+			var mapFunctions = {
+				"=": solve,
+				CLEAR: function(){ back('clear'); },
+				BACK: function(){ back('back'); },
+				_default: function(){ press(this.innerHTML); }
+			};
+			var buttons = document.getElementsByTagName("button");
+			for(var x = 0; x < buttons.length; x++)
+				buttons[x].onclick =
+					mapFunctions[buttons[x].innerHTML] || mapFunctions._default;
+		</script>
+	</body>
+</html>

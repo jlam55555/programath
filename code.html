@@ -1,0 +1,471 @@
+<!doctype html>
+<html>
+	<head>
+		<title>PrograMath-Code</title>
+		<style>
+			@font-face {
+				font-family: "colab";
+				src: url("colab.otf");
+			}
+			* {
+				font-family: "colab";
+				text-align: justify;
+			}
+			body {
+				padding: 20px 50px;
+			}
+			blockquote {
+				padding: 20px;
+				background-color: rgba(230,230,230,0.75);
+			}
+			.citeHighlight {
+				display: inline-block;
+				width: 100%;
+				text-align: right;
+				position: relative;
+				top: -60px;
+				right: 20px;
+				font-size: 12px;
+				color: rgb(50,50,255);
+			}
+			code {
+				overflow: scroll;
+				font-size: 14px;
+			}
+			.code {
+				font-family: courier new;
+				font-weight: normal;
+			}
+			#demoLink {
+				display: block;
+				width: 100px;
+				text-align: right;
+				position: absolute;
+				top: 40px;
+				right: 50px;
+			}
+			h2 {
+				color: rgb(0,0,150);
+			}
+			hr {
+				border: none;
+				background-color: black;
+				height: 1px;
+			}
+			nav a {
+				display: inline-block;
+				width: 33.3%;
+				padding: 5px 0;
+				font-size: 20px;
+				text-align: center;
+				background-color: rgb(230,230,230);
+				text-decoration: none;
+			}
+			nav a:hover {
+				background-color: rgb(250,250,250);
+			}
+			#rights {
+				display: block;
+				width: 100%;
+				text-align: center;
+			}
+			table {
+				width: 100%;
+				margin: 25px 0;
+			}
+			th,td {
+				padding: 5px 10px;
+				width: 30%;
+				vertical-align: top;
+			}
+			th:first-child {
+				width: 10%;
+			}
+		</style>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+		<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+	</head>
+	<body>
+		<h1>PrograMath - <span class="code">Code</span></h1>
+		<a id="demoLink" href="demo.html" title="Widget Demos">Widget Demos</a>
+		<p>PrograMath is coded in three web languages: HTML, CSS, and JS. All three of them are written in plain text, unlike the visual programming we have done in school (Scratch, RoboPro), and are very popular today in web programming.</p>
+		<p>
+			Put simply, HTML is the structure of a webpage, which encloses all the content of a webpage. The CSS styles a webpage and makes it look better. The JS does the processing of information, similar to many other programming languages. Learn about them more in depth below
+		</p>
+		<nav>
+			<a href="#html">HTML</a><!--
+		 --><a href="#css">CSS</a><!--
+		 --><a href="#js">JS</a>
+		</nav>
+		<p>
+			Or, go directly to the code for the <a href="#wid">PrograMath widgets</a>.
+		</p>
+		<hr />
+		<a name="html"><h2>HTML (Hypertext Markup Language)</h2></a>
+		<p>
+			HTML is THE programming language of the web. It is a markup language, like XML (eXtensible Markup Language), which is defined by <a href="http://en.wikipedia.org/wiki/Markup_language" title="Markup Language - Wikipedia" target="_blank">Wikipedia</a> as:
+		</p>
+			<blockquote>
+				A (document) markup language is a modern system for annotating a document in a way that is syntactically distinguishable from the text. The idea and terminology evolved from the "marking up" of paper manuscripts, i.e., the revision instructions by editors, traditionally written with a blue pencil on authors' manuscripts.
+			</blockquote>
+		<p>
+			Most webpages are written in HTML. There are three major parts of HTML:
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<th><br /></th>
+					<th>Tags</th>
+					<th>Attributes</th>
+					<th>Content</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Definition</th>
+					<td>Tags, or elements, are the markup of HTML. It makes up the structure of HTML, and (usually) everything is placed within an HTML tag. Many of them have default properties, such as the title and heading tags.</td>
+					<td>Attributes give special meaning to a HTML element by modifying certain properties of that element, like height or width.</td>
+					<td>Content is what makes up a webpage. It is the text placed within the tags, and is what is shown on the webpage.</td>
+				</tr>
+				<tr>
+					<th>Importance</th>
+					<td>Without tags, there would be no HTML. They define and structure the language, and without it, HTML could not be modified easily with attributes, and the content could only be plain text.</td>
+					<td>Without attributes, attributes could not be styled, and the page would still mostly be plain text.</td>
+					<td>Without content, there would be no webpage, because there is nothing to show.</td>
+				</tr>
+				<tr>
+					<th>Examples</th>
+					<td><span class="code">&lt;html&gt;</span>,<span class="code">&lt;head&gt;</span>,<span class="code">&lt;body&gt;</span> tags</td>
+					<td><span class="code">id</span>,<span class="code">class</span>,<span class="code">style</span> attributes</td>
+					<td>Everything shown on this page is content</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			The HTML HelloWorld program (A "HelloWorld" program is often the simplest program that is written in any language and is taught first, showing the basics of correct syntax of that language):
+		</p>
+		<pre><code>
+	&lt;!doctype html>
+	&lt;html>
+		&lt;head>
+			&lt;title>HelloWorld&lt;/title>
+		&lt;/head>
+		&lt;body>
+			&lt;h1>Hello,World!&lt;/h1>
+		&lt;/body>
+	&lt;/html>
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>
+			See a live demo and explanation of the HTML HelloWorld program <a href="http://jamie.curle.io/blog/html5-hello-world/" title="HTML5 - Hello World -- Jamie Curle" target="_blank">here</a>, or learn HTML at <a href="http://www.w3schools.com/html/html5_intro.asp" title="W3Schools" target="_blank">W3Schools</a> or <a href="http://www.codecademy.com/tracks/web" title="CodeAcademy" target="_blank">CodeAcademy</a>.
+		</p>
+		<p>
+			Most of this webpage is written in HTML. Press the "View Source" option in your browser to see the code (Click <a href="view-source:http://localhost/PrograMath/code.html">here</a> if you are using Google Chrome, Mozilla Firefox, or Opera). An example of HTML in this webpage is this the table about the parts of HTML. Here is the code:
+			<pre class="html"><code>
+	&lt;table id="html_elem">				&lt;!-- This is a comment. A comment is a piece of code that does not show up in the end program. -->
+		&lt;thead>						&lt;!-- Some of this code is modified from the original to better show the use of attributes in HTML. -->
+			&lt;tr>
+				&lt;th style="background-color: rgb('200,200,200')">&lt;br />&lt;/th>
+				&lt;th class="headings">Tags&lt;/th>
+				&lt;th class="headings">Attributes&lt;/th>
+				&lt;th class="headings">Content&lt;/th>
+			&lt;/tr>
+		&lt;/thead>
+		&lt;tbody>
+			&lt;tr>
+				&lt;th class="headings">Definition&lt;/th>
+				&lt;td>Tags, or elements, are the markup of HTML. It makes up the structure of HTML, and (usually) everything is placed within an HTML tag. Many of them have default properties, such as the title and heading tags.&lt;/td>
+				&lt;td>Attributes give special meaning to a HTML element by modifying certain properties of that element, like height or width.&lt;/td>
+				&lt;td>Content is what makes up a webpage. It is the text placed within the tags, and is what is shown on the webpage.&lt;/td>
+			&lt;/tr>
+			&lt;tr>
+				&lt;th class="headings">Importance&lt;/th>
+				&lt;td>Without tags, there would be no HTML. They define and structure the language, and without it, HTML could not be modified easily with attributes, and the content could only be plain text.&lt;/td>
+				&lt;td>Without attributes, attributes could not be styled, and the page would still mostly be plain text.&lt;/td>
+				&lt;td>Without content, there would be no webpage, because there is nothing to show.&lt;/td>
+			&lt;/tr>
+			&lt;tr>
+				&lt;th class="headings">Examples&lt;/th>
+				&lt;td>&lt;span class="code">&lt;html&gt;&lt;/span>,&lt;span class="code">&lt;head&gt;&lt;/span>,&lt;span class="code">&lt;body&gt;&lt;/span> tags&lt;/td>
+				&lt;td>&lt;span class="code">id&lt;/span>,&lt;span class="code">class&lt;/span>,&lt;span class="code">style&lt;/span> attributes&lt;/td>
+				&lt;td>Everything shown on this page, and on any page (e.g. &lt;a href="en.wikipedia.org/" title="Wikipedia" target="blank" onclick="openLink('Wikipedia');" >Wikipedia&lt;/a>), is content&lt;/td>
+			&lt;/tr>
+		&lt;/tbody>
+	&lt;/table>
+			</code></pre>
+			<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		</p>
+		<hr />
+		<a name="css"><h2>CSS (Cascading Style Sheets)</h2></a>
+		<p>CSS adds <span style="font-weight:bold;text-decoration:underline;font-style:italic;font-size:20px;color:blue">style</span> to a webpage and all its content. Without CSS, that "<span style="font-weight:bold;text-decoration:underline;font-style:italic;font-size:20px;color:blue">style</span>" would just be "style". Here is the HTML for the plain "style":</p>
+		<pre><code>
+	style
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		Here is the HTML for "style" styled (like <span style="font-weight:bold;text-decoration:underline;font-style:italic;font-size:20px;color:blue">style</span>):
+		<pre><code>
+	&lt;span style="font-weight:bold; text-decoration:underline; font-style:italic; font-size:20px; color:blue">style&lt;/span>
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		Here is the HTML for "style" styled (in a more structured, easy-to-read way, with the CSS separate). HTML:
+		<pre><code>
+	&lt;span id="styled">style&lt;/span>		&lt;!-- This has a id attribute of "styled", which will how the following CSS code matches and manipultes this style. -->
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		CSS (corresponding with above HTML):
+		<pre><code>
+	/* This is a comment in CSS. */
+	#styled {					/* This finds the element (tag) with the id attribute of "styled", like the "style" tag does. */
+		font-weight: bold;		/* This is the CSS, the style for the word "style" */
+		text-decoration: underline;
+		font-style: italic;
+		font-size: 20px;
+		color: blue;
+	}
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>
+			Through these examples of CSS, you can tell that CSS is just styling - no computational parts like JavaScript, and no tags like in HTML. It can style "properties" of elements like the following, and many more:
+		</p>
+		<ul>
+			<li class="code">font-weight</li>
+			<li class="code">text-decoration</li>
+			<li class="code">font-style</li>
+			<li class="code">font-size</li>
+			<li class="code">color</li>
+		</ul>
+		<p>
+			It has one simple purpose: to style content and make webpages look nice. It is still relatively new, so many older websites without CSS will be bland, mostly plain text.
+		</p>
+		<p>
+			Although the structure of CSS is simple, it still is extensive. Learn about it at <a href="http://www.w3schools.com/css/default.asp" title="W3Schools" target="_blank">W3Schools</a>.
+		</p>
+		<hr />
+		<a name="js"><h2>JS (JavaScript)</h2></a>
+		<p>
+			JavaScript really is a programming language - unlike HTML and CSS, it is not made to affect the look of a webpage - instead, it is used to work with the webpage by processing data.
+		</p>
+		<p>
+			JavaScript has similar structure to many other object-oriented programming (OOP) languages, such as Java, C++, etc. It supports "objects", "functions" (also known as methods and subroutines in other languages), and much more. It can do simple operations on numbers, use <span class="code">if</span>, <span class="code">switch</span>, and many other common programming language constructs, as well as many unique web-related functions. It is regarded as "the language of the Web" by many programmers. Here is an example of a JavaScript "function", or a block of code, that makes a popup that says, "Hello, World!"
+		</p>
+		<pre><code>
+	function HelloWorld() {
+		alert("HelloWorld");
+	}
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>
+			To run, or call, this function, the following code needs to be run
+		</p>
+		<pre><code>
+	HelloWorld();
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>Or, you can call it through an "event" (for example a click). Here it is called through a button.</p>
+		<pre><code class="html">
+	&lt;button onclick="HelloWorld()">Popup "HelloWorld"&lt;/button>
+		</code></pre>
+		<script>
+			function HelloWorld() {
+				alert("HelloWorld");
+			}
+		</script>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		Try it here: <button onclick="HelloWorld()">Popup "HelloWorld"</button>
+		<hr />
+		<a name="wid"><h2>PrograMath Widgets</h2></a>
+		<h3>The PrograMath Widgets are coded using these three languages.</h3>
+		<p>Here are some code pieces from the Graphing widget.</p>
+		<p>HTML (This is what gets displayed on the webpage):</p>
+		<pre><code class="html">
+	&lt;canvas id="graph" height="500" width="500">&lt;/canvas>
+	&lt;a id="info" onclick="info()">Info&lt;/a>
+	&lt;h2 id="funcCont">
+		X-range:
+		&lt;input id="xran" value="-250,250" onblur="changeGraph()" />
+		Y-range:
+		&lt;input id="yran" value="-250,250" onblur="changeGraph()" />
+		&lt;br />
+		Function:
+		&lt;input id="function" value="y=2*x+75" />
+		&lt;button type="button" onclick="changeGraph()">Graph&lt;/button>
+	&lt;/h2>
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>CSS (This is what changes a webpage's appearance):</p>
+		<pre><code>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		width: 500px;
+	}
+	button,input {
+		padding: 5px;
+	}
+	canvas {
+		display: block;
+	}
+	#funcCont {
+		padding: 10px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+	h2 {
+		font-family: georgia;
+		width: 500px;
+		font-size: 1em;
+		text-align: right;
+	}
+	#info {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		padding: 10px;
+		background-color: rgba(230,230,230,0.75);
+	}
+	#info:hover {
+		background-color: rgba(210,210,210,0.75);
+	}
+	.note {
+		color: red;
+		font-weight: bold;
+	}
+	#noteContainer {
+		font-weight: normal;
+		position: fixed;
+		width: 80%;
+		top: 10%;
+		left: 10%;
+		padding: 20px;
+		border: 5px solid black;
+		background-color: rgba(255,255,255,0.75);
+		display: none;
+		text-align: justify;
+	}
+	#xran,#yran {
+		width: 60px;
+	}
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>JS (This is what makes a program compute and process data):</p>
+		<pre><code class="js">
+	function draw() {
+		c.clearRect(0,0,500,500);
+		c.strokeStyle = "rgb(150,150,200)";
+		c.lineWidth = 1;
+		c.strokeStyle = "rgb(250,75,75)";
+		c.lineWidth = 2;
+		c.beginPath();
+		c.moveTo(0,250);
+		c.lineTo(500,250);
+		c.stroke();
+		c.beginPath();
+		c.moveTo(250,0);
+		c.lineTo(250,500);
+		c.stroke();
+		c.strokeStyle = "rgb(0,0,0)";
+		c.lineWidth = 1;
+		c.beginPath();
+		if(!/[xy].*=|=.*[xy]/i.test(expression))
+			alert("Function does not have a 'y' or 'x' and '='.");
+		else if(/[^\s\*\/+\-yx=(tan)(cos)(sin)\)\(0-9\.\^]/i.test(expression))
+			alert("Function contains characters other than digits,'*','/','+','-','y','x','=','sin','cos','tan','(',')'. Invalid character: '" + expression.substr(expression.search(/[^\s\*\/+\-yx=tancosin\)\(0-9\.\^]/i)) + "'",1);
+		else {
+			for(x = -250; x <= 250; x++) {
+				noy = expression.substr(2);
+				noy = noy.replace(/x/gi,x);
+				noy = noy.replace(/--/g,"");
+				noy = noy.replace(/\(\)/g,"");
+				res = parseInt(calculate(noy));
+				if(x%50 == 0) console.log(res);
+				// done parsing
+				//xCoor = x+250;
+				//yCoor = 250-(res);
+				xCoor = ((500/(range[1]-range[0]))*x) + 250;
+				yCoor = 250 - (500/(range[3]-range[2]))*res;
+				if(x == -250)
+					c.moveTo(parseInt(xCoor),parseInt(yCoor));
+				else
+					c.lineTo(parseInt(xCoor),parseInt(yCoor));
+			}
+			c.stroke();
+		}
+	}
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<h3>How does it work?</h3>
+		<p>
+			The code in the widgets are similar, because they have similar functions: to parse (analyze) a user-inputted math expression (from a string into an expression), and evaluate the expression. Although the built-in JavaScript function <span class="code">eval()</span> could do this (for example, the string <span class="code">"(500+30)/53"</span> could be simplified by calling <span class="code">eval()</span> like so: <span class="code">eval("(500+30)/53")</span>, and the returned result would be "10"), I did this from scratch to challenge myself.
+		</p>
+		<p>
+			The programs look through the expressions (for example, "(500+30)/53","200*15/17-56000+22","321321321.2*231/(3334-2)") and simplify them using PEMDAS: It first finds, and then evaluates, all parentheses, then exponents, then multiplication/division, then addition/subtraction.
+		</p>
+		<pre><code class="js">
+	mdi = /(-?\d+(\.\d+)?)([\*\/])(-?\d+(\.\d+)?)/g;		// These are known as "Regular Expressions", or "regex", and are used to find match certain "patterns" in a string.
+	asu = /(-?\d+(\.\d+)?)([\+\-])(-?\d+(\.\d+)?)/g;
+	par = /\(([^\(\)]+)\)/g;
+	sct = /(sin|cos|tan)\(([^\(\)]+)\)/g;
+	num = /\d+(\.\d+)?/g;
+	pow = /((-)?\d+(\.\d+)?)\^((-)?\d+(\.\d+)?)/g;
+	Nnum = /[^0-9\.]/g;
+	doN = /--/g;
+	while((result = sct.exec(exp)) !== null) {				// These code "blocks decide what to do with the matched code (matched code: the code that the regex "matched")
+		if(x%50 == 0) console.log(exp);
+		exp = exp.replace(sct,
+			function(match,$1,$2) {
+				if($1 == "sin")
+					return Math.sin(calculate($2));
+				else if($1 == "cos")
+					return Math.cos(calculate($2));
+				else
+					return Math.tan(calculate($2));
+			});
+	}
+	while((result = par.exec(exp)) !== null) {
+		exp = exp.replace(par,
+			function(match,$1) {
+				return calculate($1);
+			});
+	}
+	while((result = pow.exec(exp)) !== null) {
+		if(x%50 == 0) console.log(exp);
+		exp = exp.replace(pow,
+			function(match,$1,$2,$3,$4,$5) {
+				return calculate(Math.pow(parseFloat($1),parseFloat($4)));
+			});
+	}
+	while((result = mdi.exec(exp)) !== null) {
+		if(x%50 == 0) console.log(exp);
+		exp = exp.replace(mdi,
+			function(match,$1,$3,$4,$5) {
+				if($4 == "*")
+					return parseFloat($1) * parseFloat($5);
+				else
+					return parseFloat($1) / parseFloat($5);
+			});
+		exp = exp.replace(doN,"");
+	}
+	while((result = asu.exec(exp)) !== null) {
+		if(x%50 == 0) console.log(exp);
+		exp = exp.replace(asu,
+			function(match,$1,$3,$4,$5) {
+				if($4 == "+")
+					return parseFloat($1) + parseFloat($5);
+				else
+					return parseFloat($1) - parseFloat($5);
+			});
+		exp = exp.replace(doN,"");
+	}
+		</code></pre>
+		<span class="citeHighlight">(Syntax highlighting courtesy of <a href="http://www.highlightjs.org" title="highlight.js" target="_blank">highlight.js</a>)</span>
+		<p>Information about development <a href="dev.html">here</a>.</p>
+		<p>A short quiz <a href="quiz.html">here</a>.</p>
+		<p>For more information or better, simpler explanation, get Jon or contact him at <a href="mailto:jlam55555@gmail.com?Subject=PrograMath%20Questions" title="This will open your default mail client.">jlam55555@gmail.com</a>.</p>
+		<span id="rights">&copy; Copyright 2014 JLam, INC. All Rights Reserved</span>
+	</body>
+</html>
